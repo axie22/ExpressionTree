@@ -1,3 +1,12 @@
+/**
+ * Created by Alex Xie, anx201
+ * October 18, 2023
+ * The Expression Tree class is used to create an expression tree from a given
+ * postfix expression
+ * The class also contains functions to print out the tree in preorder, inorder,
+ * and postorder notation
+ */
+
 public class ExpressionTree {
     private String postfixExpression;
     private Node root;
@@ -11,7 +20,14 @@ public class ExpressionTree {
         this.postfixExpression = postfixExpression;
     }
 
-    public Node createExpressionTree() {
+    /**
+     * Creates an expression tree from the given postfix expression in the
+     * ExpressionTree Object
+     * Operands are leavesa and operators and internal nodes
+     * 
+     * @return root the root of the expression tree
+     */
+    public Node buildTree() {
         char[] data = postfixExpression.toCharArray();
 
         ArrayStack<Node> nodes = new ArrayStack<>();
@@ -40,42 +56,47 @@ public class ExpressionTree {
         return this.root;
     }
 
-    // public void preorder() {
-    // preorder(this.root);
-    // System.out.println();
-    // }
-
-    public void preorder(Node root) {
+    /**
+     * Prints out the tree in preorder
+     * 
+     * @param root the tree's root node
+     */
+    public void prefix(Node root) {
         if (root == null)
             return;
         System.out.print(root);
-        preorder(root.leftChild);
-        preorder(root.rightChild);
+        prefix(root.leftChild);
+        prefix(root.rightChild);
     }
 
-    // public void inorder() {
-    // inorder(this.root);
-    // System.out.println();
-    // }
-
-    public void inorder(Node root) {
+    /**
+     * Prints out the tree inorder and adds parenthesis to specify order of
+     * operation
+     * 
+     * @param root the tree's root node
+     */
+    public void infix(Node root) {
         if (root == null)
             return;
-        inorder(root.leftChild);
+        // add a paren every time we go deeper
+        System.out.print("(");
+        infix(root.leftChild);
         System.out.print(root);
-        inorder(root.rightChild);
+        infix(root.rightChild);
+        // closing parens
+        System.out.print(")");
     }
 
-    // public void postorder() {
-    // postorder(this.root);
-    // System.out.println();
-    // }
-
-    public void postorder(Node root) {
+    /**
+     * Prints out the tree in postorder
+     * 
+     * @param root the tree's root node
+     */
+    public void postfix(Node root) {
         if (root == null)
             return;
-        postorder(root.leftChild);
-        postorder(root.rightChild);
+        postfix(root.leftChild);
+        postfix(root.rightChild);
         System.out.print(root);
     }
 }
